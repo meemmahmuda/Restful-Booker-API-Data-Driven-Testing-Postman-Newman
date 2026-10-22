@@ -1,0 +1,513 @@
+{
+  "info": {
+    "_postman_id": "872231e9-6281-463d-9c7c-7c1fbdea876d",
+    "name": "DDT",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "59019255",
+    "_collection_link": "https://go.postman.co/collection/59019255-872231e9-6281-463d-9c7c-7c1fbdea876d?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "CreateBooking",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "// Fetch first name for DDT\r",
+              "var firstName = pm.iterationData.get('firstname');\r",
+              "pm.environment.set(\"fName\" , firstName);\r",
+              "\r",
+              "// Fetch last name for DDT\r",
+              "var lastName = pm.iterationData.get('lastname');\r",
+              "pm.environment.set(\"lName\" , lastName);\r",
+              "\r",
+              "// Fetch total price for DDT\r",
+              "var totalPrice = pm.iterationData.get('totalprice');\r",
+              "pm.environment.set(\"tPrice\" , totalPrice);\r",
+              "\r",
+              "// Fetch deposit paid for DDT\r",
+              "var depositPaid = pm.iterationData.get('depositpaid');\r",
+              "pm.environment.set(\"dPaid\" , depositPaid);\r",
+              "\r",
+              "// Fetch checkin for DDT\r",
+              "var checkIn = pm.iterationData.get('checkin');\r",
+              "pm.environment.set(\"checkin\" , checkIn);\r",
+              "\r",
+              "// Fetch checkout for DDT\r",
+              "var checkOut = pm.iterationData.get('checkout');\r",
+              "pm.environment.set(\"checkout\" , checkOut);\r",
+              "\r",
+              "// Fetch additionalneeds for DDT\r",
+              "var additionalNeeds = pm.iterationData.get('additionalneeds');\r",
+              "pm.environment.set(\"additionalneeds\" , additionalNeeds);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var responsebody = pm.response.json();\r",
+              "pm.environment.set(\"id\",responsebody.bookingid);\r",
+              "\r",
+              "// Assertion for status code\r",
+              "pm.test(\"Verify that Status code is 201 or not\", function () {\r",
+              "    pm.response.to.have.status(201);\r",
+              "});\r",
+              "\r",
+              "// Assertion for time\r",
+              "pm.test(\"Verify that the response time is below 500ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+              "});\r",
+              "\r",
+              "// Assertion for size\r",
+              "pm.test(\"Verify that the response size is below 1000B\", function () {\r",
+              "    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+              "});\r",
+              "\r",
+              "// Assertion for first name\r",
+              "var responsebody = pm.response.json();\r",
+              "pm.test(\"Verify that the response first name is same as environment\", function () {\r",
+              "    pm.expect(pm.environment.get(\"fName\")).to.eql(responsebody.booking.firstname);\r",
+              "});\r",
+              "\r",
+              "// Assertion for last name\r",
+              "pm.test(\"Verify that the response last name is same as environment\", function () {\r",
+              "    pm.expect(pm.environment.get(\"lName\")).to.eql(responsebody.booking.lastname);\r",
+              "});\r",
+              "\r",
+              "// Assertion for total price\r",
+              "pm.test(\"Verify that the response total price is same as environment\", function () {\r",
+              "    pm.expect(pm.environment.get(\"tPrice\")).to.eql(responsebody.booking.totalprice);\r",
+              "});\r",
+              "\r",
+              "// Assertion for deposit paid\r",
+              "pm.test(\"Verify that the response deposit paid is same as environment\", function () {\r",
+              "    var expectedValue = pm.environment.get(\"dPaid\");\r",
+              "    var actualValue = responsebody.booking.depositpaid;\r",
+              "    pm.expect(expectedValue == 1).to.eql(actualValue);\r",
+              "});\r",
+              "\r",
+              "// Assertion for checkin date\r",
+              "pm.test(\"Verify that the response checkin date is same as environment\", function () {\r",
+              "    pm.expect(pm.environment.get(\"checkin\")).to.eql(responsebody.booking.bookingdates.checkin);\r",
+              "});\r",
+              "\r",
+              "// Assertion for checkout date\r",
+              "pm.test(\"Verify that the response checkout date is same as DDT\", function () {\r",
+              "    pm.expect(pm.environment.get(\"checkout\")).to.eql(responsebody.booking.bookingdates.checkout);\r",
+              "});\r",
+              "\r",
+              "// Assertion for additional needs\r",
+              "pm.test(\"Verify that the response additional needs is same as environment\", function () {\r",
+              "    pm.expect(pm.environment.get(\"additionalneeds\")).to.eql(responsebody.booking.additionalneeds);\r",
+              "});\r",
+              "\r",
+              "// Assertion for firstname is string\r",
+              "pm.test(\"Verify first name is a string\", function () {\r",
+              "    pm.expect(responsebody.booking.firstname).to.be.a(\"string\");\r",
+              "});\r",
+              "\r",
+              "// Assertion for lastname is string\r",
+              "pm.test(\"Verify last name is a string\", function () {\r",
+              "    pm.expect(responsebody.booking.lastname).to.be.a(\"string\");\r",
+              "});\r",
+              "\r",
+              "// Assertion for totalprice is number\r",
+              "pm.test(\"Verify total price is a number\", function () {\r",
+              "    pm.expect(responsebody.booking.totalprice).to.be.a(\"number\");\r",
+              "});\r",
+              "\r",
+              "// Assertion for depositpaid is boolean\r",
+              "pm.test(\"Verify deposit paid is a boolean\", function () {\r",
+              "    pm.expect(responsebody.booking.depositpaid).to.be.a(\"boolean\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"firstname\" : \"{{fName}}\",\r\n    \"lastname\" : \"{{lName}}\",\r\n    \"totalprice\" : {{tPrice}},\r\n    \"depositpaid\" : {{dPaid}},\r\n    \"bookingdates\" : {\r\n        \"checkin\" : \"{{checkin}}\",\r\n        \"checkout\" : \"{{checkout}}\"\r\n    },\r\n    \"additionalneeds\" : \"{{additionalneeds}}\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://restful-booker.herokuapp.com/booking",
+          "protocol": "https",
+          "host": [
+            "restful-booker",
+            "herokuapp",
+            "com"
+          ],
+          "path": [
+            "booking"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "CreateToken",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "// Fetch username for DDT\r",
+              "var userName = pm.iterationData.get('username');\r",
+              "pm.environment.set(\"uName\" , userName);\r",
+              "\r",
+              "// Fetch last name for DDT\r",
+              "var passWord = pm.iterationData.get('password');\r",
+              "pm.environment.set(\"pWord\" , passWord);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var responsebody = pm.response.json();\r",
+              "pm.environment.set(\"token\",responsebody.token);\r",
+              "\r",
+              "// Assertion for status code\r",
+              "pm.test(\"Verify that Status code is 201 or not\", function () {\r",
+              "    pm.response.to.have.status(201);\r",
+              "});\r",
+              "\r",
+              "// Assertion for time\r",
+              "pm.test(\"Verify that the response time is below 500ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+              "});\r",
+              "\r",
+              "// Assertion for size\r",
+              "pm.test(\"Verify that the response size is below 1000B\", function () {\r",
+              "    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+              "});\r",
+              "\r",
+              "// Assertion for token\r",
+              "pm.test(\"Verify that the token is showing correctly or not\", function () {\r",
+              "\r",
+              "    // test case 1\r",
+              "    pm.expect(responsebody.token).to.exist;\r",
+              "\r",
+              "    // test case 2\r",
+              "    pm.expect(responsebody.token).to.be.a(\"string\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\" : \"{{uName}}\",\r\n    \"password\" : \"{{pWord}}\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://restful-booker.herokuapp.com/auth",
+          "protocol": "https",
+          "host": [
+            "restful-booker",
+            "herokuapp",
+            "com"
+          ],
+          "path": [
+            "auth"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "UpdateBooking",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "// Fetch first name\r",
+              "var firstName = pm.iterationData.get(\"put_firstname\");\r",
+              "pm.environment.set(\"fName\", firstName);\r",
+              "\r",
+              "// Fetch last name\r",
+              "var lastName = pm.iterationData.get(\"put_lastname\");\r",
+              "pm.environment.set(\"lName\", lastName);\r",
+              "\r",
+              "// Fetch total price\r",
+              "var totalPrice = Number(pm.iterationData.get(\"put_totalprice\"));\r",
+              "pm.environment.set(\"tPrice\", totalPrice);\r",
+              "\r",
+              "// Fetch deposit paid\r",
+              "var depositPaid = String(pm.iterationData.get(\"put_depositpaid\")).toLowerCase() === \"true\";\r",
+              "pm.environment.set(\"dPaid\", depositPaid);\r",
+              "\r",
+              "// Fetch check-in\r",
+              "var checkIn = pm.iterationData.get(\"put_checkin\");\r",
+              "pm.environment.set(\"checkin\", checkIn);\r",
+              "\r",
+              "// Fetch check-out\r",
+              "var checkOut = pm.iterationData.get(\"put_checkout\");\r",
+              "pm.environment.set(\"checkout\", checkOut);\r",
+              "\r",
+              "// Fetch additional needs\r",
+              "var additionalNeeds = pm.iterationData.get(\"put_additionalneeds\");\r",
+              "pm.environment.set(\"additionalneeds\", additionalNeeds);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var responseBody = pm.response.json();\r",
+              "\r",
+              "// Status code\r",
+              "pm.test(\"Verify status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "// Response time\r",
+              "pm.test(\"Verify response time is below 500ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+              "});\r",
+              "\r",
+              "// Response size\r",
+              "pm.test(\"Verify response size is below 1000B\", function () {\r",
+              "    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+              "});\r",
+              "\r",
+              "// First name\r",
+              "pm.test(\"Verify updated first name\", function () {\r",
+              "    pm.expect(responseBody.firstname).to.eql(\r",
+              "        pm.iterationData.get(\"put_firstname\")\r",
+              "    );\r",
+              "});\r",
+              "\r",
+              "// Last name\r",
+              "pm.test(\"Verify updated last name\", function () {\r",
+              "    pm.expect(responseBody.lastname).to.eql(\r",
+              "        pm.iterationData.get(\"put_lastname\")\r",
+              "    );\r",
+              "});\r",
+              "\r",
+              "// Total price\r",
+              "pm.test(\"Verify updated total price\", function () {\r",
+              "    pm.expect(responseBody.totalprice).to.eql(\r",
+              "        Number(pm.iterationData.get(\"put_totalprice\"))\r",
+              "    );\r",
+              "});\r",
+              "\r",
+              "// Deposit paid\r",
+              "pm.test(\"Verify deposit paid is correct\", function () {\r",
+              "    var expectedDeposit = String(\r",
+              "        pm.iterationData.get(\"put_depositpaid\")\r",
+              "    ).toLowerCase() === \"true\";\r",
+              "\r",
+              "    pm.expect(responseBody.depositpaid).to.eql(expectedDeposit);\r",
+              "});\r",
+              "\r",
+              "// Check-in date\r",
+              "pm.test(\"Verify check-in date\", function () {\r",
+              "    pm.expect(responseBody.bookingdates.checkin).to.eql(\r",
+              "        pm.iterationData.get(\"put_checkin\")\r",
+              "    );\r",
+              "});\r",
+              "\r",
+              "// Check-out date\r",
+              "pm.test(\"Verify check-out date\", function () {\r",
+              "    pm.expect(responseBody.bookingdates.checkout).to.eql(\r",
+              "        pm.iterationData.get(\"put_checkout\")\r",
+              "    );\r",
+              "});\r",
+              "\r",
+              "// Additional needs\r",
+              "pm.test(\"Verify additional needs\", function () {\r",
+              "    pm.expect(responseBody.additionalneeds).to.eql(\r",
+              "        pm.iterationData.get(\"put_additionalneeds\")\r",
+              "    );\r",
+              "});\r",
+              "\r",
+              "// Data types\r",
+              "pm.test(\"Verify first name is a string\", function () {\r",
+              "    pm.expect(responseBody.firstname).to.be.a(\"string\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Verify last name is a string\", function () {\r",
+              "    pm.expect(responseBody.lastname).to.be.a(\"string\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Verify total price is a number\", function () {\r",
+              "    pm.expect(responseBody.totalprice).to.be.a(\"number\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Verify deposit paid is a boolean\", function () {\r",
+              "    pm.expect(responseBody.depositpaid).to.be.a(\"boolean\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Cookie",
+            "value": "token={{token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"firstname\": \"{{fName}}\",\r\n    \"lastname\": \"{{lName}}\",\r\n    \"totalprice\": {{tPrice}},\r\n    \"depositpaid\": {{dPaid}},\r\n    \"bookingdates\": {\r\n        \"checkin\": \"{{checkin}}\",\r\n        \"checkout\": \"{{put_checkout}}\"\r\n    },\r\n    \"additionalneeds\": \"{{additionalneeds}}\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://restful-booker.herokuapp.com/booking/{{id}}",
+          "protocol": "https",
+          "host": [
+            "restful-booker",
+            "herokuapp",
+            "com"
+          ],
+          "path": [
+            "booking",
+            "{{id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PartialUpdateBooking",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "// Fetch first name\r",
+              "var firstName = pm.iterationData.get(\"patch_firstname\");\r",
+              "pm.environment.set(\"fName\", firstName);\r",
+              "\r",
+              "// Fetch last name\r",
+              "var lastName = pm.iterationData.get(\"patch_lastname\");\r",
+              "pm.environment.set(\"lName\", lastName);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var responseBody = pm.response.json();\r",
+              "\r",
+              "// Status code\r",
+              "pm.test(\"Verify status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "// Response time\r",
+              "pm.test(\"Verify response time is below 500ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+              "});\r",
+              "\r",
+              "// Response size\r",
+              "pm.test(\"Verify response size is below 1000B\", function () {\r",
+              "    pm.expect(pm.response.responseSize).to.be.below(1000);\r",
+              "});\r",
+              "\r",
+              "// First name\r",
+              "pm.test(\"Verify updated first name\", function () {\r",
+              "    pm.expect(responseBody.firstname).to.eql(\r",
+              "        pm.iterationData.get(\"patch_firstname\")\r",
+              "    );\r",
+              "});\r",
+              "\r",
+              "// Last name\r",
+              "pm.test(\"Verify updated last name\", function () {\r",
+              "    pm.expect(responseBody.lastname).to.eql(\r",
+              "        pm.iterationData.get(\"patch_lastname\")\r",
+              "    );\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Cookie",
+            "value": "token={{token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"firstname\" : \"{{fName}}\",\r\n    \"lastname\" : \"{{lName}}\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://restful-booker.herokuapp.com/booking/{{id}}",
+          "protocol": "https",
+          "host": [
+            "restful-booker",
+            "herokuapp",
+            "com"
+          ],
+          "path": [
+            "booking",
+            "{{id}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
