@@ -66,17 +66,13 @@ In iteration 3 the data has a check-out date (`2025-03-06`) earlier than the che
 
 ## Project structure
 
-> Adjust the file names below to match your repository.
 
 ```
 .
-├── collection/
-│   └── DDT.postman_collection.json
-├── environment/
-│   └── DDT.postman_environment.json
-├── data/
-│   └── data.csv                # or data.json
-├── reports/
+|   DDT.postman_collection.json
+│   DDT.postman_environment.json
+|   all.json
+├── newman/
 │   └── DDT-2026-10-21-19-06-30-082-0.html
 └── README.md
 ```
