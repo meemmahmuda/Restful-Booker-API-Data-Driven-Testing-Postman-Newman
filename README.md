@@ -44,7 +44,7 @@ Run date: 21 Oct 2026
 | Average response time | 335ms |
 | Total data received | 3.29KB |
 
-Full report: [`newman/DDT-2026-10-21-19-06-30-082-0.html`](reports/DDT-2026-10-21-19-06-30-082-0.html) (download and open in a browser).
+Full report: [`./newman`] (download and open in a browser).
 
 ### Failure analysis
 
