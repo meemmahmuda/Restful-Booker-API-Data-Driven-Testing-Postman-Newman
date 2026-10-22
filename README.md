@@ -102,7 +102,6 @@ newman run "DDT.postman_collection.json" -e "DDT.postman_environment.json" -d "a
 | `-e` | Environment file |
 | `-d` | Data file – one iteration per row |
 | `-r htmlextra` | Use the htmlextra HTML reporter |
-| `--reporter-htmlextra-export` | Output path of the report |
 
 ### Run in Postman (GUI)
 
