@@ -94,11 +94,7 @@ npm install -g newman newman-reporter-htmlextra
 ## How to run
 
 ```bash
-newman run collection/DDT.postman_collection.json \
-  -e environment/DDT.postman_environment.json \
-  -d data/data.csv \
-  -r htmlextra \
-  --reporter-htmlextra-export reports/report.html
+newman run "DDT.postman_collection.json" -e "DDT.postman_environment.json" -d "all.json" -r cli,htmlextra
 ```
 
 | Flag | Meaning |
