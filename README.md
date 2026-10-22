@@ -44,7 +44,7 @@ Run date: 21 Oct 2026
 | Average response time | 335ms |
 | Total data received | 3.29KB |
 
-Full report: [`./newman`] (download and open in a browser).
+Full report: [**Download Newman HTML Report**](./newman) (download and open in a browser).
 
 ### Failure analysis
 
