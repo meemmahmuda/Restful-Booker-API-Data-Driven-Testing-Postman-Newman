@@ -17,6 +17,10 @@ For every row in the data file (6 iterations), the collection runs this flow:
 | 3 | UpdateBooking | `PUT` | `/booking/{id}` | Fully update the booking |
 | 4 | PartialUpdateBooking | `PATCH` | `/booking/{id}` | Update first name and last name only |
 
+## Newman Test Report
+
+<img src="Newman Summary Report.png" alt="My_Collection Newman Report" width="800">
+
 ### Assertions
 
 - **Status code** is `201`
@@ -28,10 +32,6 @@ For every row in the data file (6 iterations), the collection runs this flow:
 - **Updated values** are reflected after `PUT` and `PATCH`
 
 ---
-
-## Newman Test Report
-
-<img src="Newman Summary Report.png" alt="My_Collection Newman Report" width="800">
 
 ## Latest run summary
 
