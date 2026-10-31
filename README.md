@@ -29,6 +29,10 @@ For every row in the data file (6 iterations), the collection runs this flow:
 
 ---
 
+## Newman Test Report
+
+<img src="Newman Summary Report.png" alt="My_Collection Newman Report" width="800">
+
 ## Latest run summary
 
 Run date: 21 Oct 2026
